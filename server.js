@@ -218,8 +218,10 @@ downloadFile(VIDEO_URL, 'assets');
 }
   console.log(old_date)
   
+  var urltype = null;
   var already_vids = [];
   var media_title = null;
+  var image_title = null;
   var next_post_url = null
   var next_post_url_mp3 = null
   var save_random_number = null;
@@ -287,6 +289,16 @@ try {
   //file removed
 } catch(err) {
   console.log("No file /assets/audio.ts to delete");
+}
+  
+  const pathImage = __dirname + '/assets/post.png';
+
+try {
+  fs.unlinkSync(pathImage)
+  console.log("post.png deleted");
+  //file removed
+} catch(err) {
+  console.log("No file /assets/post.png to delete");
 }
         
 try{
@@ -360,6 +372,7 @@ redditFetch({
     allowVideo: true
 
 }).then(post => {
+    console.table(post);
     if(post.post_hint == 'hosted:video')
       {
         urlfunny = post.url + "/DASH_240.mp4";
@@ -563,6 +576,49 @@ if(FinalQuality == false)
   console.log("end ffmpeg")
           
         }
+  else
+    {
+      //ITS A PNG
+      image_title = null;
+      console.log("Found IMAGE !! : " + post.url);
+      console.log("Image Title : " + image_title);
+      image_title = post.title;
+      const fs = require('fs');
+const path = require('path');
+const axios = require('axios').default;
+    const fileUrl = post.url;
+    const downloadFolder = __dirname + '/assets/';
+// fileUrl: the absolute url of the image or video you want to download
+// downloadFolder: the path of the downloaded file on your machine
+const downloadFile = async (fileUrl, downloadFolder) => {
+  // Get the file name
+  const fileName = path.basename("post.png");
+  // The path of the downloaded file on our machine
+  const localFilePath = path.resolve(__dirname, downloadFolder, fileName);
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: fileUrl,
+      responseType: 'stream',
+    });
+    const w = response.data.pipe(fs.createWriteStream(localFilePath));
+    w.on('finish', () => {
+      console.log('Successfully downloaded file! PNG');
+      console.log(urlfunny);
+      urlfunny = post.url;
+      next_post_url = post.url;
+    });
+  } catch (err) { 
+    throw new Error(err);
+  }
+};
+
+// Testing
+const IMAGE_URL = post.url;
+downloadFile(IMAGE_URL, 'assets');
+      console.log("Wait 10s, DL PNG...")
+      wait(10000);
+    }
                 
   });
 
@@ -592,6 +648,8 @@ const client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
 
+if(next_post_url.substr(next_post_url.length-3, 3) == "mp4")
+  {
 const pathToFile = __dirname + '/assets/fullvideo.mp4'
 const mediaType = "video/mp4"
 
@@ -700,6 +758,21 @@ function publishStatusUpdate(mediaId) {
     })
   })
 }
+  }
+            else if(next_post_url.substr(next_post_url.length-3, 3) == "png")
+              {
+                const fs = require('fs');
+const path = require('path');
+const mediaFile = fs.readFileSync(path.join(__dirname, '/assets/post.png'));
+const base64image = Buffer.from(mediaFile).toString('base64');
+
+client.post('statuses/update', { status: `${image_title}`, media_ids: base64image })
+    .then(tweet => {
+
+    console.log('Image Twit Posted !!!!!!!!!!!!!!!!!!!!!!');
+}).catch(console.error);
+                
+              }
         console.log("already_vids : " + already_vids);
             console.log("FINISHED POSTING")
         //console.log("Wait 60s befind Finding Again (End Sending)")     
@@ -713,6 +786,7 @@ function publishStatusUpdate(mediaId) {
               wait(10000);
               FindMedia();
             }
+            
   }
   
   
@@ -848,7 +922,14 @@ getVideoDurationInSeconds('assets/video.mp4').then((duration) => {
      FindMedia();
 });
            }
-      
+      else if(next_post_url.substr(next_post_url.length-3, 3) == "png")
+        {
+          //IF IMAGE !!
+          ok = true;
+          console.log("Its ok ! ITS A PNG !!");
+          console.log("Seems good, next post will be :")
+          console.log("Next post : " + next_post_url);
+        }
     else
       {
           console.log("Link is not MP4 ??")
