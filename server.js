@@ -779,7 +779,8 @@ T.post('media/upload', { media_data: base64image }, function (err, data, respons
       var params = { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends`, media_ids: [mediaIdStr] }
  
       T.post('statuses/update', params, function (err, data, response) {
-        console.log(data)
+        console.log("Successfully uploaded media and tweeted! PNG !")
+        old_date = new Date();
       })
     }
   })
