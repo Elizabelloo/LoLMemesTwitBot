@@ -303,43 +303,43 @@ const random_number = getRandomInt(9);
 save_random_number = random_number;
   if(random_number == 0)
     {
-var event = 'Unexpected'
+var event = 'LeagueOfMemes'
 }
   else if(random_number == 1)
     {
-      var event = 'ContagiousLaughter'
+      var event = 'LeagueOfMemes'
     }
   else if(random_number == 2)
     {
-      var event = 'ThereWasAnAttempt'
+      var event = 'LeagueOfMemes'
     }
       else if(random_number == 3)
       {
-      var event = 'dankvideos'
+      var event = 'LeagueOfMemes'
       }
       else if(random_number == 4)
       {
-      var event = 'shitposting'
+      var event = 'LeagueOfMemes'
       }
   else if(random_number == 5)
     {
-      var event = 'UnusualVideos'
+      var event = 'LeagueOfMemes'
     }
    else if(random_number == 6)
     {
-      var event = 'Whatcouldgowrong'
+      var event = 'LeagueOfMemes'
     }
    else if(random_number == 7)
     {
-      var event = 'funny'
+      var event = 'WildRiftMemes'
     }
    else if(random_number == 8)
     {
-      var event = 'FunnyDogVideos'
+      var event = 'WildRiftMemes'
     }
   else
   {
-      var event = 'UnusualVideos'
+      var event = 'WildRiftMemes'
   }
 
         var urlfunny = null;
@@ -354,7 +354,6 @@ const redditFetch = require('reddit-fetch');
 
 redditFetch({
     subreddit: event,
-    sort: 'hot',
     allowNSFW: false,
     allowModPost: false,
     allowCrossPost: false,
@@ -683,7 +682,7 @@ function finalizeUpload(mediaId) {
 function publishStatusUpdate(mediaId) {
   return new Promise(function(resolve, reject) {
     client.post("statuses/update", {
-      status: `${media_title}\n#memes #meme #funny #lol #humor #viral #follow #rt #dankmemes #fun #lmao`, //Message
+      status: `${media_title}\n#memes #meme #funny #lol #leagueoflegends`, //Message
       media_ids: mediaId
     }, function(error, data, response) {
       if (error) {
