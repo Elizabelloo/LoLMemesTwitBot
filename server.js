@@ -766,14 +766,24 @@ function publishStatusUpdate(mediaId) {
 const path = require('path');
 const mediaFile = fs.readFileSync(path.join(__dirname, '/assets/post.png'));
 const base64image = Buffer.from(mediaFile).toString('base64');
-
-client.post('statuses/update', { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends`, media_ids: base64image })
-    .then(tweet => {
-
-    console.log('Image Twit Posted !!!!!!!!!!!!!!!!!!!!!!');
-    next_post_url = null;
-}).catch(console.error);
-                
+T.post('media/upload', { media_data: base64image }, function (err, data, response) {
+  // now we can assign alt text to the media, for use by screen readers and
+  // other text-based presentations and interpreters
+  var mediaIdStr = data.media_id_string
+  var altText = "Like and Sub :3"
+  var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+ 
+  T.post('media/metadata/create', meta_params, function (err, data, response) {
+    if (!err) {
+      // now we can reference the media and post a tweet (media will attach to the tweet)
+      var params = { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends`, media_ids: [mediaIdStr] }
+ 
+      T.post('statuses/update', params, function (err, data, response) {
+        console.log(data)
+      })
+    }
+  })
+})
               }
         console.log("already_vids : " + already_vids);
             console.log("FINISHED POSTING")
