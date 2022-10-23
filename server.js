@@ -766,7 +766,7 @@ const path = require('path');
 const mediaFile = fs.readFileSync(path.join(__dirname, '/assets/post.png'));
 const base64image = Buffer.from(mediaFile).toString('base64');
 
-client.post('statuses/update', { status: `${image_title}`, media_ids: base64image })
+client.post('statuses/update', { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends`, media_ids: base64image })
     .then(tweet => {
 
     console.log('Image Twit Posted !!!!!!!!!!!!!!!!!!!!!!');
