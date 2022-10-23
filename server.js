@@ -817,10 +817,10 @@ T.post('media/upload', { media_data: base64image }, function (err, data, respons
   } ) ).start();
   
   //Auto Like (1H)
-/*
+
       ( new CronJob( '0 * * * *', function() {
         console.log("Like (start)");
-        const mediaArtsSearch = { q: "#memes", count: 100, result_type: "recent" };
+        const mediaArtsSearch = { q: "#leagueoflegends", count: 100, result_type: "recent" };
 
 // This function finds the latest tweet with the MeetMaye hashtag and retweets.
   try {
@@ -847,7 +847,7 @@ T.post('favorites/create', { id: retweetId })
 
         
   } ) ).start();
-*/
+
   
   ( new CronJob( '*/3 * * * *', function() {
   const pathToFile = __dirname + '/assets/video.mp4'
