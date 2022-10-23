@@ -770,6 +770,7 @@ client.post('statuses/update', { status: `${image_title}\n#memes #meme #funny #l
     .then(tweet => {
 
     console.log('Image Twit Posted !!!!!!!!!!!!!!!!!!!!!!');
+    next_post_url = null;
 }).catch(console.error);
                 
               }
