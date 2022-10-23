@@ -579,6 +579,10 @@ if(FinalQuality == false)
         }
   else
     {
+        if(already_vids.includes(post.url) == false)
+    {
+      already_vids.push(next_post_url);
+
       //ITS A PNG
       image_title = null;
       console.log("Found IMAGE !! : " + post.url);
@@ -620,7 +624,11 @@ downloadFile(IMAGE_URL, 'assets');
       console.log("Wait 10s, DL PNG...")
       wait(10000);
     }
-                
+      else
+        {
+          FindMedia();
+        }
+          }          
   });
 
 } catch(error){
