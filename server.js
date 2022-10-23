@@ -366,6 +366,7 @@ const redditFetch = require('reddit-fetch');
 
 redditFetch({
     subreddit: event,
+    sort : 'hot',
     allowNSFW: false,
     allowModPost: false,
     allowCrossPost: false,
