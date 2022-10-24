@@ -581,6 +581,9 @@ if(FinalQuality == false)
     {
         if(already_vids.includes(post.url) == false)
     {
+        urlfunny = post.url;
+        next_post_url = post.url;
+        console.log("Found ! PNG")
       already_vids.push(next_post_url);
 
       //ITS A PNG
@@ -789,10 +792,16 @@ T.post('media/upload', { media_data: base64image }, function (err, data, respons
       T.post('statuses/update', params, function (err, data, response) {
         console.log("Successfully uploaded media and tweeted! PNG !")
         old_date = new Date();
+        FindMedia();
+        next_post_url = null;
       })
     }
   })
 })
+              }
+            else
+              {
+                FindMedia();
               }
         console.log("already_vids : " + already_vids);
             console.log("FINISHED POSTING")
