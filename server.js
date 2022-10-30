@@ -828,6 +828,7 @@ T.post('media/upload', { media_data: base64image }, function (err, data, respons
   //Auto Like (1H)
 
       ( new CronJob( '*/5 * * * *', function() {
+        /*
         console.log("Like (start)");
         const mediaArtsSearch = { q: "#leagueoflegends", count: 100, result_type: "recent" };
 
@@ -854,7 +855,7 @@ T.post('favorites/create', { id: retweetId })
     console.log(error)
   }
 
-        
+     */   
   } ) ).start();
 
   
