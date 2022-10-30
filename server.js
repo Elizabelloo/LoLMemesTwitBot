@@ -499,7 +499,7 @@ let URL240 = post.url + "/DASH_240.mp4";
 let xhr = new XMLHttpRequest();
 // Requests the headers that would be returned if the HEAD request's URL was instead requested with the HTTP GET method
 var FinalQuality = false;
-xhr.open('HEAD', URL1080, true);
+xhr.open('HEAD', URL720, true);
 
 xhr.onload = function() {
 // In here I get the Content Type from the HEAD of the response
@@ -511,7 +511,7 @@ xhr.onload = function() {
 //Function to play mp4 file
     }
     else {
-        console.log("Quality don't exist (1080p)")
+        console.log("Quality don't exist (720p)")
 // Function to play HLS m3u8 file
     }
 
