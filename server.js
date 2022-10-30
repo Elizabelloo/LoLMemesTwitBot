@@ -752,7 +752,7 @@ function finalizeUpload(mediaId) {
 function publishStatusUpdate(mediaId) {
   return new Promise(function(resolve, reject) {
     client.post("statuses/update", {
-      status: `${media_title}\n#memes #meme #funny #lol #leagueoflegends`, //Message
+      status: `${media_title}\n#memes #meme #funny #lol #leagueoflegends #Arcane #jinx #LeagueOfLegendsFanArt #Worlds2022 #Sett #Aphelios #SpiritBlossom #RiotGames #Settphel`, //Message
       media_ids: mediaId
     }, function(error, data, response) {
       if (error) {
@@ -787,7 +787,7 @@ T.post('media/upload', { media_data: base64image }, function (err, data, respons
   T.post('media/metadata/create', meta_params, function (err, data, response) {
     if (!err) {
       // now we can reference the media and post a tweet (media will attach to the tweet)
-      var params = { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends`, media_ids: [mediaIdStr] }
+      var params = { status: `${image_title}\n#memes #meme #funny #lol #leagueoflegends #Arcane #jinx #LeagueOfLegendsFanArt #Worlds2022 #Sett #Aphelios #SpiritBlossom #RiotGames #Settphel`, media_ids: [mediaIdStr] }
  
       T.post('statuses/update', params, function (err, data, response) {
         console.log("Successfully uploaded media and tweeted! PNG !")
